@@ -1,9 +1,10 @@
-function App() {
+import TodoPage from "./components/todos/TodoPage";
+import "./styles.css";
+
+export default function App() {
   return (
     <div className="App">
-      <h1>Todo List</h1>
+      <TodoPage />
     </div>
   );
 }
-
-export default App;
