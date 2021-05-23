@@ -1,8 +1,10 @@
+import { nanoid } from "nanoid";
 import React, { useContext, useState } from "react";
+import { ADD_TODO } from "../../reducers/todosReducer";
 import { TodoContext } from "./TodoPage";
 
 const AddTodo = () => {
-  const { addTodo } = useContext(TodoContext);
+  const { dispatch } = useContext(TodoContext);
   const initialState = { name: "", completed: false };
   const [todo, setTodo] = useState(initialState);
 
@@ -11,9 +13,10 @@ const AddTodo = () => {
     setTodo({ ...todo, [name]: value });
   };
 
-  const todoAdd = (event) => {
+  const addTodo = (event) => {
     event.preventDefault();
-    addTodo(todo);
+    todo.id = nanoid();
+    dispatch({ type: ADD_TODO, payload: todo });
     setTodo(initialState);
   };
 
@@ -26,7 +29,7 @@ const AddTodo = () => {
           value={todo.name}
           onChange={handleOnChange}
         />
-        <button onClick={todoAdd}>Add Todo</button>
+        <button onClick={addTodo}>Add Todo</button>
       </form>
     );
   };
