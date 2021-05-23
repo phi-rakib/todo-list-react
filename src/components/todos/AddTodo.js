@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TodoContext } from "./TodoPage";
 
-const AddTodo = ({ addTodo }) => {
+const AddTodo = () => {
+  const { addTodo } = useContext(TodoContext);
   const initialState = { name: "", completed: false };
   const [todo, setTodo] = useState(initialState);
 

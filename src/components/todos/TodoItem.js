@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./TodoItem.css";
+import { TodoContext } from "./TodoPage";
 
-const TodoItem = ({ todo, deleteTodo, completeTodo }) => {
+const TodoItem = ({ todo }) => {
+  const { deleteTodo, completeTodo } = useContext(TodoContext);
   const { id } = todo;
   return (
     <li className={todo.completed ? "job_done" : ""}>
-      <input type="checkbox" onChange={() => completeTodo(id)} />
+      <input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={() => completeTodo(id)}
+      />
       {todo.name}
       <button onClick={() => deleteTodo(id)}>Delete</button>
     </li>

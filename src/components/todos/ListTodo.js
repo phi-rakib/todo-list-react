@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
+import { TodoContext } from "./TodoPage";
 
-const ListTodo = ({ todos, deleteTodo, completeTodo }) => {
+const ListTodo = () => {
+  const { todos } = useContext(TodoContext);
+
   const renderTodos = todos.map((todo) => (
-    <TodoItem
-      todo={todo}
-      key={todo.id}
-      deleteTodo={deleteTodo}
-      completeTodo={completeTodo}
-    />
+    <TodoItem todo={todo} key={todo.id} />
   ));
 
   return (

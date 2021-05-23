@@ -4,6 +4,8 @@ import todoList from "../../services/api";
 import AddTodo from "./AddTodo";
 import ListTodo from "./ListTodo";
 
+export const TodoContext = React.createContext();
+
 const TodoPage = () => {
   const [todos, setTodos] = useState([]);
 
@@ -30,12 +32,12 @@ const TodoPage = () => {
 
   return (
     <>
-      <AddTodo addTodo={addTodo} />
-      <ListTodo
-        todos={todos}
-        deleteTodo={deleteTodo}
-        completeTodo={completeTodo}
-      />
+      <TodoContext.Provider
+        value={{ todos, addTodo, deleteTodo, completeTodo }}
+      >
+        <AddTodo />
+        <ListTodo />
+      </TodoContext.Provider>
     </>
   );
 };
