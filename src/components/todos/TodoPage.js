@@ -1,5 +1,11 @@
 import { nanoid } from "nanoid";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
+import todoReducer, {
+  ADD_TODO,
+  COMPLETE_TODO,
+  DELETE_TODO,
+  FETCH_TODOS,
+} from "../../reducers/todosReducer";
 import todoList from "../../services/api";
 import AddTodo from "./AddTodo";
 import ListTodo from "./ListTodo";
@@ -7,28 +13,20 @@ import ListTodo from "./ListTodo";
 export const TodoContext = React.createContext();
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, dispatch] = useReducer(todoReducer, []);
 
   useEffect(() => {
-    setTodos(todoList);
+    dispatch({ type: FETCH_TODOS, payload: todoList });
   }, []);
 
   const addTodo = (todo) => {
     todo.id = nanoid();
-    setTodos([todo, ...todos]);
+    dispatch({ type: ADD_TODO, payload: todo });
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  const deleteTodo = (id) => dispatch({ type: DELETE_TODO, payload: id });
 
-  const completeTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
+  const completeTodo = (id) => dispatch({ type: COMPLETE_TODO, payload: id });
 
   return (
     <>
