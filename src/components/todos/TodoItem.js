@@ -8,7 +8,7 @@ const TodoItem = ({ todo }) => {
   return (
     <li className={todo.completed ? "job_done" : ""}>
       <CompleteTodo todo={todo} />
-      {todo.name}
+      {todo.title}
       <DeleteTodo id={id} />
     </li>
   );
